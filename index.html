@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szyfrowanie i Deszyfrowanie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Szyfrowanie i Deszyfrowanie</h1>
+
+    <section>
+        <h2>Szyfr Cezara</h2>
+        <p><strong>Opis:</strong> Szyfr Cezara przesuwa każdą literę w tekście o określoną liczbę miejsc w alfabecie. Przesunięcie może być dodatnie (w prawo) lub ujemne (w lewo).</p>
+        <p><strong>Przykład:</strong> Dla tekstu „ABC” i przesunięcia 3 wynik to „DEF”.</p>
+        <textarea id="caesarInput" placeholder="Wpisz tekst..."></textarea><br>
+        <input type="number" id="caesarShift" placeholder="Podaj przesunięcie (np. 3)" />
+        <div>
+            <button onclick="encryptCaesar()">Zaszyfruj</button>
+            <button onclick="decryptCaesar()">Odszyfruj</button>
+        </div>
+        <textarea id="caesarOutput" placeholder="Wynik..." readonly></textarea>
+    </section>
+
+    <section>
+        <h2>Szyfr Polibiusza</h2>
+        <p><strong>Opis:</strong> Szyfr Polibiusza wykorzystuje tabelę 5x5, w której każda litera jest identyfikowana przez współrzędne wiersza i kolumny. Litera „I” i „J” są często traktowane jako jeden znak.</p>
+        <p><strong>Przykład:</strong> W tabeli 5x5 litera „C” to „13”, a „O” to „34”.</p>
+        <textarea id="polibiusInput" placeholder="Wpisz tekst..."></textarea><br>
+        <div>
+            <button onclick="encryptPolibius()">Zaszyfruj</button>
+            <button onclick="decryptPolibius()">Odszyfruj</button>
+        </div>
+        <textarea id="polibiusOutput" placeholder="Wynik..." readonly></textarea>
+    </section>
+
+    <section>
+        <h2>Szyfr Vigenère'a</h2>
+        <p><strong>Opis:</strong> Szyfr Vigenère'a używa klucza do określenia przesunięcia każdej litery w tekście. Klucz jest powtarzany, aby dopasować długość tekstu.</p>
+        <p><strong>Przykład:</strong> Dla tekstu „WITAJ” i klucza „KLUCZ” przesunięcia są stosowane kolejno: „K”, „L”, „U”, „C”, „Z”.</p>
+        <textarea id="vigenereInput" placeholder="Wpisz tekst..."></textarea><br>
+        <input type="text" id="vigenereKey" placeholder="Podaj klucz (np. KLUCZ)" />
+        <div>
+            <button onclick="encryptVigenere()">Zaszyfruj</button>
+            <button onclick="decryptVigenere()">Odszyfruj</button>
+        </div>
+        <textarea id="vigenereOutput" placeholder="Wynik..." readonly></textarea>
+    </section>
+
+    <section>
+        <h2>Szyfr RSA</h2>
+        <p><strong>Opis:</strong> Szyfr RSA to jeden z najpopularniejszych algorytmów kryptografii asymetrycznej. Każdy użytkownik posiada dwa klucze: <em>klucz publiczny</em> do szyfrowania wiadomości oraz <em>klucz prywatny</em> do ich deszyfrowania. Algorytm opiera się na trudności rozkładu dużych liczb na czynniki pierwsze.</p>
+        <p><strong>Kroki działania algorytmu RSA:</strong></p>
+        <ol>
+            <li>Wybierz dwie duże liczby pierwsze \( p \) i \( q \).</li>
+            <li>Oblicz \( n = p \times q \) oraz funkcję Eulera \( \phi(n) = (p-1)(q-1) \).</li>
+            <li>Wybierz liczby \( e \) (część klucza publicznego), tak aby \( 1 < e < \phi(n) \), a \( e \) było względnie pierwsze z \( \phi(n) \).</li>
+            <li>Oblicz \( d \) (część klucza prywatnego), które spełnia \( e \cdot d \equiv 1 \pmod{\phi(n)} \).</li>
+        </ol>
+        <p><strong>Przykład kluczy:</strong></p>
+        <ul>
+            <li>Klucz publiczny: \( e = 17, n = 3233 \)</li>
+            <li>Klucz prywatny: \( d = 2753, n = 3233 \)</li>
+        </ul>
+        <p><strong>Przykład szyfrowania i deszyfrowania:</strong></p>
+        <ol>
+            <li>Szyfrujemy znak „A” (ASCII: 65) przy użyciu klucza publicznego:
+                \( C = 65^{17} \mod 3233 = 2790 \).</li>
+            <li>Deszyfrujemy wynik \( C = 2790 \) przy użyciu klucza prywatnego:
+                \( M = 2790^{2753} \mod 3233 = 65 \), co odpowiada „A”.</li>
+        </ol>
+        <p>Uwaga: W praktyce do obliczeń na dużych liczbach używa się zoptymalizowanych algorytmów, takich jak szybkie potęgowanie modularne.</p>
+        <textarea id="rsaInput" placeholder="Wpisz tekst..."></textarea><br>
+        <input type="text" id="rsaPublicKey" placeholder="Klucz publiczny (np. e,n)" />
+        <input type="text" id="rsaPrivateKey" placeholder="Klucz prywatny (np. d,n)" />
+        <div>
+            <button onclick="encryptRSA()">Zaszyfruj</button>
+            <button onclick="decryptRSA()">Odszyfruj</button>
+        </div>
+        <textarea id="rsaOutput" placeholder="Wynik..." readonly></textarea>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
