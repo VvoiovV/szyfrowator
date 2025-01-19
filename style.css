@@ -1,56 +1,107 @@
+/* Ograniczenie szerokości całej strony */
 body {
     font-family: Arial, sans-serif;
-    background: #f3f4f6;
-    color: #333;
+    background: #121212;
+    color: #00aa00; /* Ciemny zielony kolor tekstu */
     text-align: center;
     padding: 20px;
+    margin: 0 auto; /* Wyrównanie do środka */
+    max-width: 1000px; /* Maksymalna szerokość strony */
 }
 
+/* Główny nagłówek */
 h1 {
-    color: #4a90e2;
+    color: #00aa00; /* Ciemny zielony kolor nagłówka */
     margin-bottom: 20px;
 }
 
-input, textarea, button {
-    margin: 10px 0;
+/* Sekcje */
+section {
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Kontener flexbox */
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* Kolumny */
+.left, .right {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px; /* Maksymalna szerokość kolumn */
+}
+
+/* Nagłówki sekcji */
+h2 {
+    color: #00aa00; /* Ciemny zielony kolor nagłówków sekcji */
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Pola tekstowe i input */
+input, textarea {
+    background: #2a2a2a;
+    color: #00aa00; /* Ciemny zielony kolor tekstu w polach */
+    border: 1px solid #444444;
+    border-radius: 8px;
     padding: 10px;
     font-size: 16px;
-    width: 80%;
-    max-width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-textarea {
-    height: 100px;
-    resize: none;
-}
-
+/* Przycisk */
 button {
-    background: #4a90e2;
-    color: #fff;
-    border: none;
+    background: #00aa00; /* Ciemny zielony kolor przycisków */
+    color: #121212; /* Ciemne tło tekstu na przyciskach */
     font-weight: bold;
-    transition: background 0.3s ease;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin: 5px;
 }
 
 button:hover {
-    background: #357abd;
+    background: #008800; /* Jeszcze ciemniejszy zielony na hover */
+    transform: scale(1.05);
 }
 
 button:active {
-    background: #2c6399;
+    background: #006600; /* Najciemniejszy zielony na active */
+    transform: scale(0.95);
 }
 
 button:focus, input:focus, textarea:focus {
     outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 4px rgba(74, 144, 226, 0.5);
+    border-color: #00aa00; /* Ciemne zielone podświetlenie przy fokusie */
+    box-shadow: 0 0 4px #00aa00;
 }
 
-#outputText {
-    background: #e9ecef;
-    color: #495057;
+/* Opisy */
+.right p {
+    color: #00aa00; /* Ciemny zielony kolor opisów */
+    text-align: left;
+    line-height: 1.5;
+}
+/* Styl dla efektu Matrix */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Tło, za innymi elementami */
+    background: #000; /* Czarne tło */
 }

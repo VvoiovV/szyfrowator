@@ -1,13 +1,24 @@
-// Szyfr Cezara
+// Funkcja sprawdzająca, czy znak należy do polskiego alfabetu
+function isPolishLetter(char) {
+    return /[a-ząćęłńóśźż]/i.test(char);
+}
+
+// Funkcja szyfru Cezara z obsługą polskich znaków
 function caesarCipher(text, shift, decrypt = false) {
     if (decrypt) shift = -shift;
+
+    const polishAlphabet = 'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż';
+    const alphabetLength = polishAlphabet.length;
+
     return text.split('').map(char => {
-        if (/[a-z]/.test(char)) {
-            const code = char.charCodeAt(0);
-            return String.fromCharCode(((code - 97 + shift + 26) % 26) + 97);
-        } else if (/[A-Z]/.test(char)) {
-            const code = char.charCodeAt(0);
-            return String.fromCharCode(((code - 65 + shift + 26) % 26) + 65);
+        const isUpper = char === char.toUpperCase();
+        const lowerChar = char.toLowerCase();
+
+        if (isPolishLetter(lowerChar)) {
+            const index = polishAlphabet.indexOf(lowerChar);
+            const newIndex = (index + shift + alphabetLength) % alphabetLength;
+            const newChar = polishAlphabet[newIndex];
+            return isUpper ? newChar.toUpperCase() : newChar;
         } else {
             return char;
         }
@@ -26,13 +37,14 @@ function decryptCaesar() {
     document.getElementById('caesarOutput').value = caesarCipher(text, shift, true);
 }
 
-// Szyfr Polibiusza
+// Szyfr Polibiusza z polskimi literami
 const polibiusTable = {
-    A: '11', B: '12', C: '13', D: '14', E: '15',
-    F: '21', G: '22', H: '23', I: '24', J: '24', K: '25',
-    L: '31', M: '32', N: '33', O: '34', P: '35',
-    Q: '41', R: '42', S: '43', T: '44', U: '45',
-    V: '51', W: '52', X: '53', Y: '54', Z: '55'
+    A: '11', Ą: '12', B: '13', C: '14', Ć: '15', D: '21',
+    E: '22', Ę: '23', F: '24', G: '25', H: '31', I: '32',
+    J: '32', K: '33', L: '34', Ł: '35', M: '41', N: '42',
+    Ń: '43', O: '44', Ó: '45', P: '51', Q: '52', R: '53',
+    S: '54', Ś: '55', T: '61', U: '62', W: '63', X: '64',
+    Y: '65', Z: '71', Ź: '72', Ż: '73'
 };
 const polibiusReverse = Object.fromEntries(Object.entries(polibiusTable).map(([k, v]) => [v, k]));
 
@@ -48,15 +60,22 @@ function decryptPolibius() {
 
 // Szyfr Vigenère'a
 function vigenereCipher(text, key, decrypt = false) {
-    key = key.toUpperCase();
+    const polishAlphabet = 'aąbcćdeęfghijklłmnńoópqrsśtuvwxyzźż';
+    const alphabetLength = polishAlphabet.length;
+    key = key.toLowerCase();
     let keyIndex = 0;
+
     return text.split('').map(char => {
-        if (/[a-zA-Z]/.test(char)) {
-            const isUpper = char === char.toUpperCase();
-            const base = isUpper ? 65 : 97;
-            const shift = key.charCodeAt(keyIndex % key.length) - 65;
+        const isUpper = char === char.toUpperCase();
+        const lowerChar = char.toLowerCase();
+
+        if (isPolishLetter(lowerChar)) {
+            const charIndex = polishAlphabet.indexOf(lowerChar);
+            const shift = polishAlphabet.indexOf(key[keyIndex % key.length]);
+            const newIndex = (charIndex + (decrypt ? -shift : shift) + alphabetLength) % alphabetLength;
             keyIndex++;
-            return String.fromCharCode(((char.charCodeAt(0) - base + (decrypt ? -shift : shift) + 26) % 26) + base);
+            const newChar = polishAlphabet[newIndex];
+            return isUpper ? newChar.toUpperCase() : newChar;
         } else {
             return char;
         }
@@ -75,22 +94,7 @@ function decryptVigenere() {
     document.getElementById('vigenereOutput').value = vigenereCipher(text, key, true);
 }
 
-// Szyfr RSA
-// Funkcja do potęgowania modulo (dla dużych liczb)
-function modularExponentiation(base, exponent, modulus) {
-    let result = 1;
-    base = base % modulus;
-    while (exponent > 0) {
-        if (exponent % 2 === 1) { // Jeśli wykładnik jest nieparzysty
-            result = (result * base) % modulus;
-        }
-        exponent = Math.floor(exponent / 2); // Dzielenie wykładnika przez 2
-        base = (base * base) % modulus;
-    }
-    return result;
-}
-
-// Szyfrowanie RSA
+// RSA (bez zmian)
 function encryptRSA() {
     const text = document.getElementById('rsaInput').value;
     const [e, n] = document.getElementById('rsaPublicKey').value.split(',').map(Number);
@@ -108,7 +112,6 @@ function encryptRSA() {
     document.getElementById('rsaOutput').value = encrypted.join(' ');
 }
 
-// Deszyfrowanie RSA
 function decryptRSA() {
     const text = document.getElementById('rsaInput').value.split(' ').map(Number);
     const [d, n] = document.getElementById('rsaPrivateKey').value.split(',').map(Number);
@@ -125,3 +128,142 @@ function decryptRSA() {
 
     document.getElementById('rsaOutput').value = decrypted.join('');
 }
+
+// Funkcja do potęgowania modulo dla RSA
+function modularExponentiation(base, exponent, modulus) {
+    let result = 1;
+    base = base % modulus;
+    while (exponent > 0) {
+        if (exponent % 2 === 1) {
+            result = (result * base) % modulus;
+        }
+        exponent = Math.floor(exponent / 2);
+        base = (base * base) % modulus;
+    }
+    return result;
+}
+
+
+// Funkcja pomocnicza: Sprawdzanie, czy liczba jest pierwsza
+function isPrime(num) {
+    if (num <= 1) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+
+// Funkcja pomocnicza: Obliczanie największego wspólnego dzielnika (GCD)
+function gcd(a, b) {
+    while (b !== 0) {
+        [a, b] = [b, a % b];
+    }
+    return a;
+}
+
+// Funkcja pomocnicza: Obliczanie odwrotności modularnej
+function modularInverse(e, phi) {
+    let [m0, x0, x1] = [phi, 0, 1];
+    while (e > 1) {
+        const q = Math.floor(e / phi);
+        [e, phi] = [phi, e % phi];
+        [x0, x1] = [x1 - q * x0, x0];
+    }
+    return x1 < 0 ? x1 + m0 : x1;
+}
+
+// Generator kluczy RSA
+function generateRSAKeys() {
+    // Wygeneruj dwie małe liczby pierwsze (dla uproszczenia)
+    let p, q;
+    do {
+        p = Math.floor(Math.random() * 50) + 50; // Liczby pierwsze między 50 a 100
+    } while (!isPrime(p));
+    do {
+        q = Math.floor(Math.random() * 50) + 50;
+    } while (!isPrime(q) || q === p);
+
+    // Oblicz n i phi
+    const n = p * q;
+    const phi = (p - 1) * (q - 1);
+
+    // Wybierz e
+    let e = 3;
+    while (gcd(e, phi) !== 1) {
+        e += 2; // Szukaj kolejnej nieparzystej liczby
+    }
+
+    // Oblicz d
+    const d = modularInverse(e, phi);
+
+    // Zwróć klucze
+    return {
+        publicKey: [e, n],
+        privateKey: [d, n]
+    };
+}
+
+// Wyświetlenie kluczy w konsoli (możesz podłączyć to do interfejsu strony)
+const rsaKeys = generateRSAKeys();
+console.log("Public Key:", rsaKeys.publicKey);
+console.log("Private Key:", rsaKeys.privateKey);
+
+function generateAndDisplayKeys() {
+    const rsaKeys = generateRSAKeys();
+    document.getElementById("publicKey").textContent = `(${rsaKeys.publicKey[0]}, ${rsaKeys.publicKey[1]})`;
+    document.getElementById("privateKey").textContent = `(${rsaKeys.privateKey[0]}, ${rsaKeys.privateKey[1]})`;
+}
+
+
+// Efekt Matrix na canvasie
+const canvas = document.getElementById("matrixCanvas");
+const ctx = canvas.getContext("2d");
+
+// Rozmiar canvasu dopasowany do okna
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Litery do efektu
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ąćęłńóśźż";
+const fontSize = 10; // Rozmiar fontu
+const columns = canvas.width / fontSize; // Liczba kolumn
+const drops = Array(Math.floor(columns)).fill(1); // Pozycje liter
+
+// Animacja spadających liter
+function drawMatrix() {
+    // Czyszczenie canvasu z przezroczystym efektem
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Zielony kolor tekstu
+    ctx.fillStyle = "#00aa00";
+    ctx.font = `${fontSize}px monospace`;
+
+    // Rysowanie liter
+    for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Rysowanie litery
+        ctx.fillText(text, x, y);
+
+        // Resetowanie pozycji, jeśli litera wychodzi poza ekran
+        if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+}
+
+// Uruchamianie animacji
+setInterval(drawMatrix, 100);
+
+// Automatyczna zmiana rozmiaru canvasu przy zmianie okna
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drops.length = Math.floor(canvas.width / fontSize);
+    drops.fill(1);
+});
