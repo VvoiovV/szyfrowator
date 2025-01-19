@@ -13,6 +13,11 @@
 
     <section>
         <h2>Szyfr Cezara</h2>
+        <p><strong>Opis:</strong> 
+            Szyfr Cezara to jeden z najstarszych i najprostszych szyfrów podstawieniowych. Jego historia sięga czasów starożytnego Rzymu,
+             gdzie według legendy był używany przez Juliusza Cezara do tajnej korespondencji. Algorytm ten opiera się na przesunięciu liter alfabetu o stałą liczbę pozycji.
+        </p>
+                
         <div class="flex-container">
             <div class="left">
                 <textarea id="caesarInput" placeholder="Wpisz tekst..."></textarea><br>
@@ -24,14 +29,30 @@
                 <textarea id="caesarOutput" placeholder="Wynik..." readonly></textarea>
             </div>
             <div class="right">
-                <p><strong>Opis:</strong> Szyfr Cezara przesuwa każdą literę w tekście o określoną liczbę miejsc w alfabecie. Obsługiwane są polskie litery: ą, ć, ę, ł, ń, ó, ś, ź, ż.</p>
-                <p><strong>Przykład:</strong> Tekst „zażółć gęślą jaźń” z przesunięciem 3 zamienia się na „ćbżróę jęúną mćźó”.</p>
+                <p><strong>Opis:</strong> 
+                    Każda litera w wiadomości jest przesuwana o stałą liczbę pozycji w alfabecie. Jeśli przesunięcie (klucz) wynosi (k), wtedy
+                     Dla szyfrowania: C = (P + k) mod N
+                     Dla deszyfrowania: P = (C - k) mod N
+                    
+                    Gdzie
+                     P to litera w tekście jawnym.
+                     C to litera w szyfrogramie.
+                     N to liczba liter w alfabecie.
+                </p>
+                <p><strong>Przykład:</strong> 
+                     Tekst jawny `HELLO`
+                     Przesunięcie klucz k = 3
+                     Szyfrowanie `KHOOR`
+                      H → K E → H L → O L → O O → R
+                </p>
             </div>
         </div>
     </section>
 
     <section>
         <h2>Szyfr Polibiusza</h2>
+        <p><strong>Opis:</strong> RSA (Rivest–Shamir–Adleman) to jeden z najważniejszych i najpowszechniej stosowanych algorytmów szyfrowania asymetrycznego. Został opracowany w 1977 roku przez trzech naukowców z MIT: Rona Rivesta, Adi'ego Shamira i Leonarda Adlemana. Algorytm ten bazuje na trudności faktoryzacji (rozkładu) dużych liczb na czynniki pierwsze, co czyni go bezpiecznym przy odpowiednio dużych kluczach. Podaj klucz publiczny i prywatny w odpowiednim formacie (np. „17,3233”).</p>
+                
         <div class="flex-container">
             <div class="left">
                 <textarea id="polibiusInput" placeholder="Wpisz tekst..."></textarea><br>
@@ -49,6 +70,8 @@
 
     <section>
         <h2>Szyfr Vigenère'a</h2>
+        <p><strong>Opis:</strong> RSA (Rivest–Shamir–Adleman) to jeden z najważniejszych i najpowszechniej stosowanych algorytmów szyfrowania asymetrycznego. Został opracowany w 1977 roku przez trzech naukowców z MIT: Rona Rivesta, Adi'ego Shamira i Leonarda Adlemana. Algorytm ten bazuje na trudności faktoryzacji (rozkładu) dużych liczb na czynniki pierwsze, co czyni go bezpiecznym przy odpowiednio dużych kluczach. Podaj klucz publiczny i prywatny w odpowiednim formacie (np. „17,3233”).</p>
+                
         <div class="flex-container">
             <div class="left">
                 <textarea id="vigenereInput" placeholder="Wpisz tekst..."></textarea><br>
@@ -67,6 +90,8 @@
 
     <section>
         <h2>Szyfr RSA</h2>
+        <p><strong>Opis:</strong> RSA (Rivest–Shamir–Adleman) to jeden z najważniejszych i najpowszechniej stosowanych algorytmów szyfrowania asymetrycznego. Został opracowany w 1977 roku przez trzech naukowców z MIT: Rona Rivesta, Adi'ego Shamira i Leonarda Adlemana. Algorytm ten bazuje na trudności faktoryzacji (rozkładu) dużych liczb na czynniki pierwsze, co czyni go bezpiecznym przy odpowiednio dużych kluczach. Podaj klucz publiczny i prywatny w odpowiednim formacie (np. „17,3233”).</p>
+                
         <div class="flex-container">
             <div class="left">
                 <textarea id="rsaInput" placeholder="Wpisz tekst..."></textarea><br>
@@ -77,19 +102,65 @@
                     <button onclick="decryptRSA()">Odszyfruj</button>
                 </div>
                 <textarea id="rsaOutput" placeholder="Wynik..." readonly></textarea>
-                <h2>Generator Kluczy RSA</h2>
+                <h2>Generator Kluczy</h2>
                 <button onclick="generateAndDisplayKeys()">Generuj Klucze</button>
                 <div>
                     <p><strong>Klucz Publiczny:</strong> <span id="publicKey"></span></p>
                     <p><strong>Klucz Prywatny:</strong> <span id="privateKey"></span></p>
                 </div>
+                <p><strong>Różnice:</strong>
+                    kod implementuje uproszczoną wersję RSA, która działa zgodnie z powyższymi zasadami, ale z pewnymi uproszczeniami
+                    Liczby pierwsze p i q są losowane w zakresie od 50 do 100 (bardzo małe liczby w porównaniu do praktycznych zastosowań, gdzie p i q mają tysiące bitów).
+                    Wiadomości są przekształcane na kody ASCII, a każda litera jest szyfrowana indywidualnie. W praktyce szyfrowane są całe bloki danych, a nie pojedyncze litery.
+                    Do obliczeń używam prostego algorytmu potęgowania modularnego. W praktyce Wykorzystuje się bardziej zaawansowane metody, takie jak szybkie potęgowanie modularne i systemy rozproszone.
+                </p>
             </div>
             <div class="right">
-                <p><strong>Opis:</strong> Szyfr RSA obsługuje wszystkie znaki, w tym polskie litery. Podaj klucz publiczny i prywatny w odpowiednim formacie (np. „17,3233”).</p>
+                <p><strong>Opis:</strong>Wcześniejsze metody szyfrowania, takie jak szyfry symetryczne (np. AES), wymagały wspólnego klucza dla nadawcy i odbiorcy.
+                    Problemem było bezpieczne przesyłanie klucza - jeśli ktoś przechwycił klucz, mógł złamać całą komunikację.
+                    W szyfrowaniu asymetrycznym każdy użytkownik ma dwa klucze
+                    Klucz publiczny (do szyfrowania) - może być znany każdemu.
+                    Klucz prywatny (do deszyfrowania) - trzymany w tajemnicy przez właściciela.
+                    Umożliwia to bezpieczną wymianę informacji bez konieczności przesyłania tajnych kluczy.
+                    RSA opiera się na trudności rozwiązania problemu faktoryzacji, czyli rozkładu liczby na czynniki pierwsze. Dla dużych liczb (np. 2048-bitowych) jest to praktycznie niemożliwe w rozsądnym czasie.
+                </p>
+                <p><strong>Działanie:</strong> 
+                    Kroki generowania kluczy RSA:
+                    1. Wybór dwóch dużych liczb pierwszych p i q Są one podstawą algorytmu. W praktyce liczby te muszą być ogromne (np. 1024 bity).
+                    2. Obliczenie n=p⋅q n jest podstawą dla klucza publicznego i prywatnego.
+                    3. Obliczenie funkcji Eulera ϕ(n)=(p-1)(q-1).
+                    4. Wybór liczby e musi być względnie pierwsze z ϕ(n) (tzn. GCD(e,ϕ(n)) = 1). W praktyce często używa się małych wartości e, np. 65537.
+                    5. Obliczenie klucza prywatnego d to odwrotność modularna e względem ϕ(n), co oznacza, że e⋅d mod ϕ(n)=1
+                </p>
+                <p><strong>Szyfrowanie i deszyfrowanie</strong>
+                    Szyfrowanie za pomocą klucza publicznego (e,n)
+                    Jeśli m to wiadomość (przekształcona na liczbę), to szyfrogram c oblicza się jako: c=me mod n
+                    Deszyfrowanie za pomocą klucza prywatnego (d,n)Wiadomość m odzyskuje się jako 𝑚 =cd mod n
+                </p>
             </div>
         </div>
     </section>
 
     <script src="script.js"></script>
 </body>
+<footer>
+    <pre id="asciiArt">
+          ...     ..      ..        .                                                       ..          ....        .                                                                                                                       .x+=:.         ..                   
+        x*8888x.:*8888: -&quot;888:     @88&gt;              .uef^&quot;                           x .d88&quot;        .x88&quot; `^x~  xH(`                                                                                                   x=~                z`    ^%  &lt; .z@8&quot;`        ..         
+       X   48888X `8888H  8888     %8P             :d88E                               5888R        X888   x8 ` 8888h      .u    .        ..                                  u.      .u    .        ..                88x.   .e.   .e.       .   &lt;k  !@88E         @L          
+      X8x.  8888X  8888X  !888&gt;     .          .   `888E             u          .u     &#39;888R       88888  888.  %8888    .d88B :@8c     .@88i        .u         uL      ...ue888b   .d88B :@8c     .@88i        .u    &#39;8888X.x888:.x888     .@8Ned8&quot;  &#39;888E   u    9888i   .dL  
+      X8888 X8888  88888   &quot;*8%-  .@88u   .udR88N   888E .z8k     us888u.    ud8888.    888R      &lt;8888X X8888   X8?    =&quot;8888f8888r   &quot;&quot;%888&gt;    ud8888.   .ue888Nc..  888R Y888r =&quot;8888f8888r   &quot;&quot;%888&gt;    ud8888.   `8888  888X &#39;888k  .@^%8888&quot;    888E u@8NL  `Y888k:*888. 
+      &#39;*888!X8888&gt; X8888  xH8&gt;   &#39;&#39;888E` &lt;888&#39;888k  888E~?888L .@88 &quot;8888&quot; :888&#39;8888.   888R      X8888&gt; 488888&gt;&quot;8888x    4888&gt;&#39;88&quot;      &#39;88%   :888&#39;8888. d88E`&quot;888E`  888R I888&gt;   4888&gt;&#39;88&quot;      &#39;88%   :888&#39;8888.   X888  888X  888X x88:  `)8b.   888E`&quot;88*&quot;    888E  888I 
+        `?8 `8888  X888X X888&gt;     888E  9888 &#39;Y&quot;   888E  888E 9888  9888  d888 &#39;88%&quot;   888R      X8888&gt;  888888 &#39;8888L   4888&gt; &#39;      ..dILr~` d888 &#39;88%&quot; 888E  888E   888R I888&gt;   4888&gt; &#39;      ..dILr~` d888 &#39;88%&quot;   X888  888X  888X 8888N=*8888   888E .dN.     888E  888I 
+        -^  &#39;888&quot;  X888  8888&gt;     888E  9888       888E  888E 9888  9888  8888L        888R       8888X h  8888 &#39;8888~  .d888L .+     @  &#39;888k 8888L      888E  888E   888R I888&gt;   4888&gt;       &#39;&quot;.-%88b  8888L       .X888  888X. 888~   @8Wou 9%    888E &#39;888&amp;    888E  888I 
+       .8888Xf.888x:!    X888X.:   888&amp;  ?8888u../  888E  888E 9888  9888  &#39;8888c. .+  .888B .      ?888  -:8*&quot;  &lt;888&quot;   ^&quot;8888*&quot;     8F   8888 &#39;8888c. .+ 888&amp; .888E   &quot;*888*P&quot;    ^&quot;8888*&quot;     8F   8888 &#39;8888c. .+  `%88%``&quot;*888Y&quot;    .888888P`     888E  9888.  x888N&gt;&lt;888&#39; 
+      :&quot;&quot;888&quot;:~&quot;888&quot;     `888*&quot;    R888&quot;  &quot;8888P&#39;  m888N= 888&gt; &quot;888*&quot;&quot;888&quot;  &quot;88888%    ^*888%        `*88.      :88%        &quot;Y&quot;      &#39;8    8888  &quot;88888%   *888&quot; 888&amp;     &#39;Y&quot;          &quot;Y&quot;      &#39;8    8888  &quot;88888%      `~     `&quot;       `   ^&quot;F     &#39;&quot;888*&quot; 4888&quot;   &quot;88&quot;  888  
+          &quot;~&#39;    &quot;~        &quot;&quot;       &quot;&quot;      &quot;P&#39;     `Y&quot;   888   ^Y&quot;   ^Y&#39;     &quot;YP&#39;       &quot;%             ^&quot;~====&quot;&quot;`                   &#39;8    888F    &quot;YP&#39;     `&quot;   &quot;888E                          &#39;8    888F    &quot;YP&#39;                                      &quot;&quot;    &quot;&quot;           88F  
+                                                         J88&quot;                                                                         %k  &lt;88F             .dWi   `88E                           %k  &lt;88F                                                                 98&quot;   
+                                                         @%                                                                            &quot;+:*%`              4888~  J8%                             &quot;+:*%`                                                                ./&quot;     
+                                                       :&quot;                                                                                                   ^&quot;===*&quot;`                                                                                                   ~`       
+    </pre>
+</footer>
+    
+    
 </html>

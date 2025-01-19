@@ -105,3 +105,19 @@ button:focus, input:focus, textarea:focus {
     z-index: -1; /* Tło, za innymi elementami */
     background: #000; /* Czarne tło */
 }
+
+footer {
+    width: 100%; /* Rozciągnięcie stopki na całą szerokość */
+    display: flex; /* Użycie flexboxa do wyśrodkowania */
+    justify-content: center; /* Wyśrodkowanie poziome */
+    align-items: center; /* Wyśrodkowanie pionowe (opcjonalne) */
+    margin-top: 40px; /* Odstęp od reszty strony */
+    padding: 20px 0; /* Wewnętrzny odstęp */
+    color: #00aa009f; /* Ciemny zielony kolor tekstu */
+    font-family: monospace; /* Czcionka w stylu ASCII */
+    font-size: 10px; /* Zmniejszenie rozmiaru liter */
+    line-height: 1.2; /* Zmniejszenie odstępów między liniami */
+    white-space: pre; /* Zachowanie formatowania ASCII art */
+}
+
+
