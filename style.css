@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     background: #121212;
-    color: #00aa00; /* Ciemny zielony kolor tekstu */
+    color: #007e00; /* Ciemny zielony kolor tekstu */
     text-align: center;
     padding: 20px;
     margin: 0 auto; /* Wyrównanie do środka */
@@ -11,7 +11,7 @@ body {
 
 /* Główny nagłówek */
 h1 {
-    color: #00aa00; /* Ciemny zielony kolor nagłówka */
+    color: #007e00; /* Ciemny zielony kolor nagłówka */
     margin-bottom: 20px;
 }
 
@@ -42,7 +42,7 @@ section {
 
 /* Nagłówki sekcji */
 h2 {
-    color: #00aa00; /* Ciemny zielony kolor nagłówków sekcji */
+    color: #007e00; /* Ciemny zielony kolor nagłówków sekcji */
     font-size: 24px;
     margin-bottom: 10px;
 }
@@ -50,7 +50,7 @@ h2 {
 /* Pola tekstowe i input */
 input, textarea {
     background: #2a2a2a;
-    color: #00aa00; /* Ciemny zielony kolor tekstu w polach */
+    color: #007e00; /* Ciemny zielony kolor tekstu w polach */
     border: 1px solid #444444;
     border-radius: 8px;
     padding: 10px;
@@ -61,7 +61,7 @@ input, textarea {
 
 /* Przycisk */
 button {
-    background: #00aa00; /* Ciemny zielony kolor przycisków */
+    background: #007e00; /* Ciemny zielony kolor przycisków */
     color: #121212; /* Ciemne tło tekstu na przyciskach */
     font-weight: bold;
     border: none;
@@ -85,13 +85,13 @@ button:active {
 
 button:focus, input:focus, textarea:focus {
     outline: none;
-    border-color: #00aa00; /* Ciemne zielone podświetlenie przy fokusie */
-    box-shadow: 0 0 4px #00aa00;
+    border-color: #007e00; /* Ciemne zielone podświetlenie przy fokusie */
+    box-shadow: 0 0 4px #007e00;
 }
 
 /* Opisy */
 .right p {
-    color: #00aa00; /* Ciemny zielony kolor opisów */
+    color: #007e00; /* Ciemny zielony kolor opisów */
     text-align: left;
     line-height: 1.5;
 }
@@ -113,7 +113,7 @@ footer {
     align-items: center; /* Wyśrodkowanie pionowe (opcjonalne) */
     margin-top: 40px; /* Odstęp od reszty strony */
     padding: 20px 0; /* Wewnętrzny odstęp */
-    color: #00aa009f; /* Ciemny zielony kolor tekstu */
+    color: #007e009f; /* Ciemny zielony kolor tekstu */
     font-family: monospace; /* Czcionka w stylu ASCII */
     font-size: 10px; /* Zmniejszenie rozmiaru liter */
     line-height: 1.2; /* Zmniejszenie odstępów między liniami */
